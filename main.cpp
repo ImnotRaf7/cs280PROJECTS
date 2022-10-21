@@ -5,24 +5,30 @@
 #include "mysource.cpp"
 using namespace std;
 int main() {
-    string file,word;
-    ifstream  file2;
-    cout<<"Whats your file?";  //later on change into inline arguments
-    cin>> file;
+    string x;
+    cout<<"Whats your file? ";
+    cin>>x;
+    ifstream file;
 
-    fstream myfile;
+    file.open(x);
 
-    myfile.open(file);
-    int x=0;
-    while(myfile >> word){
-        LexItem myitem = id_or_kw(word,x);
 
-        cout<<myitem.GetLexeme()<<" " <<myitem.GetToken()<<endl;
-        x++;
+
+    
+    if(!file.is_open()){
+        cout<<"FILE IS NOT OPEN";
     }
-    cout<<x;
-
-
+    else{
+        int lineNumber = 1;
+        LexItem tok;
+        while ((tok = getNextToken(file, lineNumber)) != DONE && tok != ERR)
+        {   
+            cout << tok << endl;
+        }
+        cout << tok << endl;
+       
+    }
+    file.close();
 
 
 
